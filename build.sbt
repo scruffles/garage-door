@@ -8,6 +8,7 @@ scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(  
   "org.sorm-framework" % "sorm" % "0.3.15",
-  "com.h2database" % "h2" % "1.4.177"
-)     
+  "com.h2database" % "h2" % "1.4.177",
+  "com.pi4j" % "pi4j-core" % "0.0.5"
+)
 
