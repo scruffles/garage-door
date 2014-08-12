@@ -1,4 +1,3 @@
 
-GET        /status/:newValue        controllers.Application.setStatus(newValue)
 GET        /status                  controllers.Application.statusSocket
 GET        /assets/*file            controllers.Assets.at(path="/public", file)
