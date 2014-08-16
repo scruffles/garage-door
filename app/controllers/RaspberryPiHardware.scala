@@ -1,9 +1,10 @@
 package controllers
 
 import com.pi4j.io.gpio.event.{GpioPinDigitalStateChangeEvent, GpioPinListenerDigital}
-import com.pi4j.io.gpio.{PinState, GpioFactory, PinPullResistance, RaspiPin}
+import com.pi4j.io.gpio.{GpioFactory, PinPullResistance, PinState}
 
 import scala.collection.mutable
+import RaspberryPiHardware._
 
 /**
  *
@@ -12,11 +13,6 @@ class RaspberryPiHardware extends Hardware {
   // todo remove listeners at some point
   // todo constant for open/closed ?
   // todo shutdown cleanly - http://pi4j.com/example/shutdown.html
-  val gpio = GpioFactory.getInstance()
-  val isOpenSensor = gpio.provisionDigitalInputPin(WiringPi.Pin22, PinPullResistance.PULL_DOWN)
-  val isClosedPin = gpio.provisionDigitalInputPin(WiringPi.Pin23, PinPullResistance.PULL_DOWN)
-  val triggerDoorPin = gpio.provisionDigitalOutputPin(WiringPi.Pin24, PinState.LOW)
-
   var lastValue = currentDoorState()
   val listeners = new mutable.MutableList[Listener]()
 
@@ -45,4 +41,11 @@ class RaspberryPiHardware extends Hardware {
     else "?"
 
   def fireListeners() = listeners.foreach(_.valueChanged())
+}
+
+object RaspberryPiHardware {
+  val gpio = GpioFactory.getInstance()
+  val isOpenSensor = gpio.provisionDigitalInputPin(WiringPi.Pin22, PinPullResistance.PULL_DOWN)
+  val isClosedPin = gpio.provisionDigitalInputPin(WiringPi.Pin23, PinPullResistance.PULL_DOWN)
+  val triggerDoorPin = gpio.provisionDigitalOutputPin(WiringPi.Pin24, PinState.LOW)
 }

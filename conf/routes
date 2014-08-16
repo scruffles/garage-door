@@ -1,3 +1,4 @@
 
 GET        /status                  controllers.Application.statusSocket
+GET        /diagnostics             controllers.DiagnosticsController.diagnosticsSocket
 GET        /assets/*file            controllers.Assets.at(path="/public", file)
